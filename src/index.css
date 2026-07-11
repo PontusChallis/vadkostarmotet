@@ -1,0 +1,166 @@
+:root {
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #6b7280;
+  --border: #d1d5db;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  transition: background-color 0.15s ease;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* More specific than the plain "button" rule above, so it wins for
+   any button with this class, overriding the default blue. */
+.delete-button {
+  background-color: var(--danger);
+}
+
+.delete-button:hover {
+  background-color: var(--danger-hover);
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Shared "card" look for each major section: a white surface sitting
+   on top of the page's gray background, so sections read as distinct
+   groups instead of floating text. */
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ul has its own default bullet/indent styling we don't want here. */
+ul.card {
+  list-style: none;
+  margin: 0;
+}
+
+ul.card li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.participant-info {
+  /* Lets this text shrink and wrap onto multiple lines instead of
+     forcing the row wider than the screen (flex items don't shrink
+     below their content size by default — min-width: 0 overrides that). */
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+ul.card li:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+form.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form.card label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+form.card input {
+  /* Without this, the input's own padding/border would add on top of
+     its 100% width and push it past the card's edge. box-sizing:
+     border-box makes width include padding+border instead. */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form.card button {
+  align-self: flex-start;
+}
+
+/* Small muted label sitting above a large bold number — draws the
+   eye to the number, which is the actual point of the app. */
+.label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.stat {
+  margin: 4px 0 16px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+footer a {
+  color: inherit;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+.empty-state {
+  margin: 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+@media (max-width: 400px) {
+  .card {
+    padding: 16px;
+  }
+
+  .stat {
+    font-size: 2rem;
+  }
+}
