@@ -4,6 +4,7 @@ import Timer from './components/Timer'
 import ParticipantForm from './components/ParticipantForm'
 import ParticipantList from './components/ParticipantList'
 import TotalCost from './components/TotalCost'
+import EstimateCalculator from './components/EstimateCalculator'
 import Footer from './components/Footer'
 import type { Participant } from './types'
 import './App.css'
@@ -16,6 +17,10 @@ export default function App() {
   // nearest common parent of the components that need it.
   const [seconds, setSeconds] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
+
+  // Which view is showing: the live, ticking meeting, or a what-if
+  // estimate for a meeting that hasn't happened yet.
+  const [mode, setMode] = useState<'live' | 'estimate'>('live')
 
   useEffect(() => {
     if (!isRunning) return
@@ -50,13 +55,34 @@ export default function App() {
 return (
 <div className="app">
     <Header />
-    <Timer
-      seconds={seconds}
-      isRunning={isRunning}
-      onToggle={handleToggleTimer}
-      onReset={handleResetTimer}
-    />
-    <TotalCost participants={participants} seconds={seconds} />
+
+    <div className="card">
+      <button onClick={() => setMode('live')} disabled={mode === 'live'}>
+        Pågående möte
+      </button>
+      <button onClick={() => setMode('estimate')} disabled={mode === 'estimate'}>
+        Beräkna i förväg
+      </button>
+    </div>
+
+    {/* A fragment (<>...</>) groups Timer and TotalCost as one JSX
+        expression without adding an extra <div> to the page — it exists
+        only so the ternary below has a single value to return for the
+        "live" branch. */}
+    {mode === 'live' ? (
+      <>
+        <Timer
+          seconds={seconds}
+          isRunning={isRunning}
+          onToggle={handleToggleTimer}
+          onReset={handleResetTimer}
+        />
+        <TotalCost participants={participants} seconds={seconds} />
+      </>
+    ) : (
+      <EstimateCalculator participants={participants} />
+    )}
+
     <ParticipantForm onAddParticipant={handleAddParticipant} />
     <ParticipantList
       participants={participants}

@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer>
-      <p>Arbetsgivaravgift = 31.42%</p>
+      <p>En månad = 173 timmar och arbetsgivaravgift = 31.42%</p>
       <p>
         Källkoden finns på{' '}
         <a
