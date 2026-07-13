@@ -36,6 +36,10 @@ export default function App() {
     setIsRunning((prev) => !prev)
   }
 
+  function handleToggleMode() {
+    setMode((prev) => (prev === 'live' ? 'estimate' : 'live'))
+  }
+
   function handleResetTimer() {
     setIsRunning(false)
     setSeconds(0)
@@ -57,11 +61,11 @@ return (
     <Header />
 
     <div className="card">
-      <button onClick={() => setMode('live')} disabled={mode === 'live'}>
-        Pågående möte
-      </button>
-      <button onClick={() => setMode('estimate')} disabled={mode === 'estimate'}>
-        Beräkna i förväg
+      <p className="label">
+        Växlar mellan taxameter och beräkna kostnaden i förväg
+      </p>
+      <button onClick={handleToggleMode}>
+        {mode === 'live' ? 'Beräkna i förväg' : 'Visa pågående möte'}
       </button>
     </div>
 
