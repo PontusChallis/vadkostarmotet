@@ -90,6 +90,20 @@ ul.card li:not(:last-child) {
   border-bottom: 1px solid var(--border);
 }
 
+/* The edit row packs 3 inputs + 2 buttons into what's normally a
+   one-line li. flex-wrap lets them drop onto new lines instead of
+   overflowing, and shrinking the inputs (like .participant-info
+   already does for the text) means they don't insist on their
+   default ~150px width when space is tight. */
+.edit-row {
+  flex-wrap: wrap;
+}
+
+.edit-row input {
+  flex: 1 1 100px;
+  min-width: 0;
+}
+
 form.card {
   display: flex;
   flex-direction: column;

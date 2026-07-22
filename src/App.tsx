@@ -47,6 +47,18 @@ export default function App() {
     setParticipants((prev) => prev.filter((participant) => participant.id !== id))
   }
 
+  function handleEditParticipant(updatedParticipant: Participant) {
+    // map() rebuilds the array, swapping in the updated participant
+    // where the id matches and leaving every other one exactly as it
+    // was — same "return a new array" requirement as delete, just a
+    // replace instead of a removal.
+    setParticipants((prev) =>
+      prev.map((participant) =>
+        participant.id === updatedParticipant.id ? updatedParticipant : participant,
+      ),
+    )
+  }
+
 return (
 <div className="app">
     <Header />
@@ -61,6 +73,7 @@ return (
     <ParticipantList
       participants={participants}
       onDeleteParticipant={handleDeleteParticipant}
+      onEditParticipant={handleEditParticipant}
     />
     <Footer />
 </div>
